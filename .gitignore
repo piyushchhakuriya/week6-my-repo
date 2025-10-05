@@ -1,0 +1,16 @@
+# Node modules
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Cache
+client/.cache/
+server/.cache/
+
+# Environment files
+client/.env
+server/.env
+
+# Build / dist folders
+client/dist/
+server/dist/
