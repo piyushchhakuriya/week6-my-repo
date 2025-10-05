@@ -24,7 +24,8 @@ app.use(express.json({ limit: '10mb' }));
 
 // CORS configuration
 const allowedOrigins = [
-  "*"     // deployed frontend
+  "http://localhost:3000",           // local frontend
+  "https://newmattyy.netlify.app"     // deployed frontend
 ];
 
 app.use(cors({
