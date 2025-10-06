@@ -1,39 +1,41 @@
 // Backend URL: use environment variable if set, otherwise fallback to local
-const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000/api';
+const API_BASE_URL =  process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000/api';
 
 let authToken = null;
 let currentUser = null;
 
 export const tokenManager = {
   setToken: (token) => {
-    authToken = token;
+    localStorage.setItem('token', token); // ← save in localStorage
   },
   
   getToken: () => {
-    return authToken;
+    return localStorage.getItem('token'); // ← read from localStorage
   },
   
   removeToken: () => {
-    authToken = null;
+    localStorage.removeItem('token');
   },
   
   setUser: (user) => {
-    currentUser = user;
+    localStorage.setItem('user', JSON.stringify(user));
   },
   
   getUser: () => {
-    return currentUser;
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
   },
   
   removeUser: () => {
-    currentUser = null;
+    localStorage.removeItem('user');
   },
   
   clearAuth: () => {
-    authToken = null;
-    currentUser = null;
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 };
+
 
 const apiRequest = async (endpoint, options = {}) => {
   const token = tokenManager.getToken();

@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
 
-const LoadingSpinner = () => (
+const LoadingSpinner = () => (  // Ye ek animated loading screen hai.
   <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <motion.div
       className="text-center"
@@ -40,11 +40,14 @@ const LoadingSpinner = () => (
   </div>
 );
 
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, loading } = useAuth();
+const ProtectedRoute = ({ children }) => {  // children: Ye wo protected page hai jo is wrapper ke andar render hoga.
+  const { isAuthenticated, loading } = useAuth();   // AuthContext se ye values le raha hai:
   const [redirecting, setRedirecting] = useState(false);
 
-  useEffect(() => {
+
+
+  useEffect(() => {  // Jab auth check complete ho jaye (loading = false) aur user logged out ho
+     //Ye ensure karta hai ki redirect animation thodi der ke liye dikhe before login page redirect.
     if (!loading && !isAuthenticated) {
       setRedirecting(true);
       const timer = setTimeout(() => {}, 800); // Optional delay
@@ -52,9 +55,9 @@ const ProtectedRoute = ({ children }) => {
     }
   }, [loading, isAuthenticated]);
 
-  if (loading) return <LoadingSpinner />;
+  if (loading) return <LoadingSpinner />;  // Agar auth check abhi chal raha hai → LoadingSpinner dikhao.
 
-  if (!isAuthenticated)
+  if (!isAuthenticated)   // React Router se direct /login page pe navigate kare
     return redirecting ? (
       <div className="min-h-screen flex items-center justify-center bg-gray-900">
         <motion.p
@@ -71,7 +74,7 @@ const ProtectedRoute = ({ children }) => {
     );
 
   // Fade-in effect for protected pages
-  return (
+  return (  // Page smoothly appear hoga jab user authorized ho.
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}

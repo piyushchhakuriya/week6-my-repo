@@ -619,6 +619,7 @@ const handleSaveToCloud = async () => {
   setSaveMessage(""); // Clear old messages first
   try {
     const token = localStorage.getItem("token");
+     console.log("Token from localStorage:", token);
     const imageDataURL = canvasRef.current.toDataURL("image/png");
     const imageBlob = dataURLtoBlob(imageDataURL);
 
@@ -632,6 +633,7 @@ const handleSaveToCloud = async () => {
       body: formData,
     });
     const data = await res.json();
+    console.log("Cloudinary Response:", data);
     const thumbnailUrl = data.secure_url;
 
 

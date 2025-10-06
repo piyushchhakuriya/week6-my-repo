@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa"; // react-icons
 
 const HomePage = () => {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });  //. State for Mouse Position
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -14,17 +14,17 @@ const HomePage = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  const headerVariants = {
+  const headerVariants = {   // Header appears by sliding down and fading in.
     hidden: { opacity: 0, y: -60 },
     visible: { opacity: 1, y: 0, transition: { duration: 1 } },
   };
 
-  const textVariants = {
+  const textVariants = {  //Text smoothly fades up into view.
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
   };
 
-  const buttonVariants = {
+  const buttonVariants = { // Defines hover and click (tap) animations for buttons.
     hover: {
       scale: 1.1,
       color: "#facc15",
@@ -35,7 +35,7 @@ const HomePage = () => {
     tap: { scale: 0.95 },
   };
 
-  const floatingVariants = (delay, xOffset = 0, yOffset = 0) => ({
+  const floatingVariants = (delay, xOffset = 0, yOffset = 0) => ({ // Function that creates floating animation for glowing circles (moves slowly up-down, left-right).
     animate: {
       y: [0 + yOffset, -25 + yOffset, 0 + yOffset],
       x: [0 + xOffset, 25 + xOffset, 0 + xOffset],
@@ -46,7 +46,7 @@ const HomePage = () => {
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a]">
       {/* Video Background */}
-      <video
+      <video  // A background video (hd.mp4) that plays in loop, covers the screen, and stays behind everything (z-0).
         autoPlay
         loop
         muted
@@ -76,30 +76,33 @@ const HomePage = () => {
       <div className="absolute inset-0 bg-black/50 z-10"></div>
 
       {/* Header */}
-      <motion.header
+      <motion.header    // Header bar with blur background and animation.
         className="relative z-20 flex items-center justify-between px-6 md:px-10 py-5 backdrop-blur-md"
         variants={headerVariants}
         initial="hidden"
         animate="visible"
       >
-        <motion.div
+        <motion.div  // logo
           className="text-4xl md:text-5xl font-extrabold text-white cursor-pointer tracking-wider"
           style={{ fontFamily: '"Kablammo", system-ui', textShadow: "0 0 8px #facc15" }}
           whileHover={{ scale: 1.15, color: "#facc15", textShadow: "0 0 20px #fcd34d" }}
         >
           Matty
         </motion.div>
-
+         {/* about page  */}
         <nav className="flex items-center gap-6 md:gap-10 text-white font-medium text-sm md:text-base">
           <motion.div whileHover={{ scale: 1.1, color: "#fcd34d" }}>
-            <Link to="/about">About Us 🚀</Link>
-          </motion.div>
+            <Link to="/about">About Us 🚀</Link>  
+          </motion.div> 
+
           <motion.div whileHover={{ scale: 1.1, color: "#fcd34d" }}>
             <a href="#">Our Blog 📖</a>
           </motion.div>
           <motion.div whileHover={{ scale: 1.1, color: "#fcd34d" }}>
             <a href="#">Contact Us ✉️</a>
           </motion.div>
+
+          {/* login page  */}
           <motion.div whileHover={buttonVariants.hover} whileTap={buttonVariants.tap}>
             <Link
               to="/login"
